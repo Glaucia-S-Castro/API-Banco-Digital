@@ -1,4 +1,4 @@
-# API-BANCO DIGITAL 
+# 💰 API-BANCO DIGITAL 
 ## Desafio de Módulo API Cubos
 
 
@@ -9,7 +9,7 @@ O projeto foi baseado em um desafio de conclusão de módulo da Cubos Academy, t
   </p>
 
 
-## Linguagens e Ferramentas
+## 🛠️ Linguagens e Ferramentas
 
 ![Skills](https://skillicons.dev/icons?i=js,nodejs,express,vscode,git,github)
 
@@ -21,7 +21,7 @@ O projeto foi baseado em um desafio de conclusão de módulo da Cubos Academy, t
 - Git
 - GitHub
 
-## Fucionalidades do Projeto:
+## 🪜 Fucionalidades do Projeto:
 
 ### Cadastros e alterações de contas:
 
@@ -63,7 +63,7 @@ O projeto foi baseado em um desafio de conclusão de módulo da Cubos Academy, t
 
 
 
-## Contribua com o projeto
+## 😉 Contribua com o projeto
 
 - Realize o Fork
 - Faça as modificações necessárias
@@ -90,7 +90,7 @@ npm run backend
 
 ```
 
-## Endpoints :
+## 📌 Endpoints :
 
 - POST /contas - Criar conta bancária
 - GET /contas?senha_banco=Cubos123Bank - Listar constas bancárias 
@@ -103,7 +103,7 @@ npm run backend
 - GET /contas/extrato?numero_conta=123&senha=123 - Consultar extrato simplificadode uma conta.
 
 
-# Detalhes da construção e testes:
+# 🚀 Detalhes da construção e testes:
 
 ### Visão geral:
 
@@ -128,7 +128,7 @@ npm run backend
 <img src="img/Construindo as rotas.png">
 
 
-# Testes no Insomnia :
+# 💻 Testes no Insomnia :
 
 ### Teste Insomnia - Criação de contas e listagem de contas existentes:
 
