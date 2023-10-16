@@ -64,36 +64,18 @@ const transferir = (req, res) => {
     const numero_conta_destino = Number(req.body.numero_conta_destino)
     const valor = Number(req.body.valor)
 
-    if (!numero_conta_origem || isNaN(numero_conta_origem)) {
-        return res.status(400).json({ mensagem: "É obrigatório informar conta de origem válida! " })
-    }
-    if (!numero_conta_destino || isNaN(numero_conta_destino)) {
-        return res.status(400).json({ mensagem: "É obrigatório informar conta de destino válida! " })
-    }
-    if (!valor || isNaN(valor) || valor > 1) {
-        return res.status(400).json({ mensagem: "É obrigatório informar um valor válido! " })
-    }
-
     const contaEncontradaOrigem = contas.find((conta) => {
         return conta.numero === numero_conta_origem
     })
-
-    if (!contaEncontradaOrigem) {
-        return res.status(404).json({ mensagem: 'Conta de origem não encontrada!' })
-    }
-
-    let saldoDisponivelOrigem = contaEncontradaOrigem.saldo
-
-    if (valor > saldoDisponivelOrigem) {
-        return res.status(403).json({ mensagem: "Saldo insuficiente!" })
-    }
 
     const contaEncontradaDestino = contas.find((conta) => {
         return conta.numero === numero_conta_destino
     })
 
-    if (!contaEncontradaDestino) {
-        return res.status(404).json({ mensagem: 'Conta de destino não encontrada!' })
+    let saldoDisponivelOrigem = contaEncontradaOrigem.saldo
+
+    if (valor > saldoDisponivelOrigem) {
+        return res.status(403).json({ mensagem: "Saldo insuficiente!" })
     }
 
     const novoTranferencia = {
@@ -102,9 +84,10 @@ const transferir = (req, res) => {
         numero_conta_destino: contaEncontradaDestino.numero,
         valor
     }
-    transferencias.push(novoTranferencia)
-    contaEncontradaOrigem.saldo -= valor
 
+    transferencias.push(novoTranferencia)
+
+    contaEncontradaOrigem.saldo -= valor
     contaEncontradaDestino.saldo += valor
 
     return res.status(204).json()
@@ -156,5 +139,4 @@ module.exports = {
     transferir,
     consultarSaldo,
     consultarExtrato
-
 }

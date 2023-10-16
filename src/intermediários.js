@@ -42,25 +42,38 @@ function validarSenhaUsuario(req, res, next) {
 }
 
 function validarCamposObrigatorios(req, res, next) {
-    const { nome, cpf, data_nascimento, telefone, email, senha } = req.body
+    const { nome, data_nascimento, telefone, email } = req.body
+    const cpf = Number(req.body.cpf)
+    const senha = Number(req.body.senha)
+
 
     if (!nome) {
         return res.status(400).json({ mensagem: 'O campo nome é obrigatório!' })
     }
+    if (nome === "" || nome === " ") {
+        return res.status(400).json({ mensagem: 'Favor inserir um nome válido!' })
+    }
+
     if (!cpf) {
         return res.status(400).json({ mensagem: 'O campo cpf é obrigatório!' })
     }
+
     if (!data_nascimento) {
         return res.status(400).json({ mensagem: 'O campo data de nascimento é obrigatório!' })
     }
     if (!telefone) {
         return res.status(400).json({ mensagem: 'O campo telefone é obrigatório' })
     }
+
     if (!email) {
         return res.status(400).json({ mensagem: 'O campo e-mail é obrigatório' })
     }
+
     if (!senha) {
         return res.status(400).json({ mensagem: 'O campo senha é obrigatório' })
+    }
+    if (isNaN(senha)) {
+        return res.status(400).json({ mensagem: 'O campo senha deve conter apenas numeros!' })
     }
     next()
 }
@@ -112,10 +125,59 @@ function validarNumeroConta(req, res, next) {
     next()
 }
 
+function validarCamposTransferência(req, res, next) {
+    const numero_conta_origem = Number(req.body.numero_conta_origem)
+    const numero_conta_destino = Number(req.body.numero_conta_destino)
+    const valor = Number(req.body.valor)
+
+    if (!numero_conta_origem) {
+        return res.status(400).json({ mensagem: "É obrigatório informar conta de origem válida! " })
+    }
+    if (isNaN(numero_conta_origem)) {
+        return res.status(400).json({ mensagem: "É obrigatório informar conta de origem válida! " })
+    }
+    const contaEncontradaOrigem = contas.find((conta) => {
+        return conta.numero === numero_conta_origem
+    })
+    if (!contaEncontradaOrigem) {
+        return res.status(404).json({ mensagem: 'Conta de origem não encontrada!' })
+    }
+
+    if (!numero_conta_destino) {
+        return res.status(400).json({ mensagem: "É obrigatório informar conta de destino válida! " })
+    }
+    if (isNaN(numero_conta_destino)) {
+        return res.status(400).json({ mensagem: "É obrigatório informar conta de destino válida! " })
+    }
+    const contaEncontradaDestino = contas.find((conta) => {
+        return conta.numero === numero_conta_destino
+    })
+    if (!contaEncontradaDestino) {
+        return res.status(404).json({ mensagem: 'Conta de destino não encontrada!' })
+    }
+
+    if (contaEncontradaOrigem === contaEncontradaDestino) {
+        return res.status(400).json({ mensagem: "Conta de origem e conta de destino não podem ser iguais! " })
+    }
+
+    if (!valor) {
+        return res.status(400).json({ mensagem: "É obrigatório informar um valor válido! " })
+    }
+    if (isNaN(valor)) {
+        return res.status(400).json({ mensagem: "É obrigatório informar um valor válido! " })
+    }
+    if (valor < 1) {
+        return res.status(400).json({ mensagem: "É obrigatório informar um valor válido! " })
+    }
+
+    next()
+}
+
 module.exports = {
     validarSenhaBanco,
     validarSenhaUsuario,
     validarCamposObrigatorios,
     validarCPFeEmail,
-    validarNumeroConta
+    validarNumeroConta,
+    validarCamposTransferência
 }
