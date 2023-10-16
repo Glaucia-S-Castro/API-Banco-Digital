@@ -92,15 +92,75 @@ npm run backend
 
 ## Endpoints :
 
-- POST /contas - Criar conta bancária
-- GET /contas?senha_banco=Cubos123Bank - Listar constas bancárias 
-- PUT /contas/:numeroConta/usuario - Atualizar dados de usuário da conta bancária
-- DELETE /contas/:numeroConta - Excluir conta
-- POST /transacoes/depositar - Depositar valor em uma conta
-- POST /transacoes/sacar - Sacar valor de uma conta
-- POST /transacoes/transferir - Transferir valor entre contas existentes
-- GET /contas/saldo?numero_conta=123&senha=123 - Consultar saldo de uma conta
-- GET /contas/extrato?numero_conta=123&senha=123 - Consultar extrato simplificadode uma conta.
+#### - POST /contas - Criar conta bancária
+
+~~~~ 
+//Exemplo de Requisição
+{
+    "nome": "Maria Andrade",
+    "cpf": "00011122234",
+    "data_nascimento": "2021-03-15",
+    "telefone": "71999998888",
+    "email": "andrade@unlook.com",
+    "senha": "12345"
+}
+~~~~
+
+
+#### - GET /contas?senha_banco=Cubos123Bank - Listar constas bancárias 
+
+
+#### - PUT /contas/:numeroConta/usuario - Atualizar dados de usuário da conta bancária
+~~~~
+//Exemplo de Requisição
+{
+    "nome": "Maria Andrade",
+    "cpf": "00011122234",
+    "data_nascimento": "2021-03-15",
+    "telefone": "71999998888",
+    "email": "andrade@unlook.com",
+    "senha": "12345"
+}
+~~~~
+
+#### - DELETE /contas/:numeroConta - Excluir conta
+#### - POST /transacoes/depositar - Depositar valor em uma conta
+~~~~
+//Exemplo de Requisição
+{
+	"numero_conta": "1",
+	"valor": 1900
+}
+~~~~
+
+
+#### - POST /transacoes/sacar - Sacar valor de uma conta
+~~~
+//Exemplo de Requisição
+{
+ "numero_conta": "1",
+ "valor": 1900,
+ "senha": "123456"
+}
+~~~
+
+#### - POST /transacoes/transferir - Transferir valor entre contas existentes
+~~~
+//Exemplo de Requisição
+{
+	"numero_conta_origem": "1",
+	"numero_conta_destino": "2",
+	"valor": 200,
+	"senha": "123456"
+}
+~~~
+
+
+#### - GET /contas/saldo?numero_conta=123&senha=123 - Consultar saldo de uma conta
+
+#### - GET /contas/extrato?numero_conta=123&senha=123 - Consultar extrato simplificadode uma conta.
+
+
 
 
 # Detalhes da construção e testes:
